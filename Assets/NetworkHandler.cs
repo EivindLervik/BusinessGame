@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class NetworkHandler : MonoBehaviour {
 
-	public string serverURL = "http://localhost:6969/BusinessGame";
+	public string serverURL = "http://localhost:61586/api";
 
 	void Start()
 	{
@@ -14,7 +14,7 @@ public class NetworkHandler : MonoBehaviour {
 
 	IEnumerator GetText()
 	{
-		using (UnityWebRequest www = UnityWebRequest.Get(serverURL + "/PropertyData"))
+		using (UnityWebRequest www = UnityWebRequest.Get(serverURL + "/property/two"))
 		{
 			yield return www.Send();
 
