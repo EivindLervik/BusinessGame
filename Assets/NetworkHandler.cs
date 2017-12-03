@@ -2,27 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using WebSocketSharp;
 
 public class NetworkHandler : MonoBehaviour {
 
-	public string serverURL = "http://localhost:61586/api";
+	public string serverURL;
 
-	void Start()
+    private WebSocket ws;
+
+    void Start()
 	{
-		StartCoroutine(GetText());
-	}
+        ws = new WebSocket(serverURL);
 
-	IEnumerator GetText()
-	{
-		using (UnityWebRequest www = UnityWebRequest.Get(serverURL + "/property/two"))
-		{
-			yield return www.Send();
+        ws.OnOpen += (sender, e) =>
+        {
+            print("WEBSOCKET: Connected - " + e.ToString());
+            ws.Send("Hei");
+        };
 
-			// Show results as text
-			Debug.Log(www.downloadHandler.text);
+        ws.OnMessage += (sender, e) =>
+        {
+            print("WEBSOCKET: Data - " + e.Data);
+        };
 
-			// Or retrieve results as binary data
-			byte[] results = www.downloadHandler.data;
-		}
-	}
+        ws.OnError += (sender, e) =>
+        {
+            print("WEBSOCKET: Error - " + e.Message);
+        };
+
+        ws.OnClose += (sender, e) =>
+        {
+            print("WEBSOCKET: Closed - " + e.Reason);
+        };
+
+        ws.Connect();
+    }
 }

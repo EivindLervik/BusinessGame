@@ -1,0 +1,9 @@
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\obj\Debug\BusinessGameWebSocketServer.csprojResolveAssemblyReference.cache
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\obj\Debug\BusinessGameWebSocketServer.csproj.CoreCompileInputs.cache
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\BusinessGameWebSocketServer.exe.config
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\BusinessGameWebSocketServer.exe
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\BusinessGameWebSocketServer.pdb
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\websocket-sharp.dll
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\obj\Debug\BusinessGameWebSocketServer.exe
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\obj\Debug\BusinessGameWebSocketServer.pdb
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\websocket-sharp.pdb
