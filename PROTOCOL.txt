@@ -1,0 +1,63 @@
+--- PROTOCOL ---
+
+This is the protocol for the business game.
+
+
+
+
+
+% GETTING DATA %
+	Dataformat
+		{
+			"type": "get",
+			"target": (string)
+			"data": [
+            			(string)
+				, (string)
+				, (string)
+				, ...
+        		]
+		}
+
+	GET PROPERTY DATA
+		{
+			"type": "get"
+			, "target": "property"
+			, "city": (city)
+			, "address": (address)
+			
+		}
+
+
+% STORING DATA %
+	Dataformat
+		{
+			"type": "set",
+			"target": (string)
+			"data": [
+            			(string)
+				, (string)
+				, (string)
+				, ...
+        		]
+		}
+
+
+% RECIEVING DATA %
+	PROPERTY DATA
+		{
+			"type": "getPropertyData",
+			"data": {
+				"owner": (string)
+            			"sizeX": (float)
+				, "sizeY": (float)
+				, "address"
+				, 
+				, "bgData": [
+            				(spriteID)
+					, (spriteID)
+					, (spriteID)
+					, ...
+        			}
+        		]
+		}

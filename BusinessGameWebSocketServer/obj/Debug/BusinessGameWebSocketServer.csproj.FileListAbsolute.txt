@@ -7,3 +7,7 @@ D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\websock
 D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\obj\Debug\BusinessGameWebSocketServer.exe
 D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\obj\Debug\BusinessGameWebSocketServer.pdb
 D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\websocket-sharp.pdb
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\Assembly-CSharp-firstpass.dll.dll
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\UnityEngine.dll
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\Assembly-CSharp-firstpass.dll.pdb
+D:\Produksjoner\Spill\BusinessGame\BusinessGameWebSocketServer\bin\Debug\UnityEngine.xml

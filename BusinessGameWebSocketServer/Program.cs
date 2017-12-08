@@ -7,16 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp.Server;
 
-
 namespace BusinessGameWebSocketServer
 {
     class Program
     {
+
+        public static Database database;
+
         static void Main(string[] args)
         {
 
+            database = new Database(true);
+            //Console.WriteLine(database.cities["Manger"]["properties"]["Lervikvegen 98"].ToString());
+
             var wssv = new WebSocketServer(4649);
             wssv.AddWebSocketService<Echo>("/Echo");
+            wssv.AddWebSocketService<InGame>("/InGame");
 
             wssv.Start();
             if (wssv.IsListening)
@@ -26,10 +32,20 @@ namespace BusinessGameWebSocketServer
                     Console.WriteLine("- {0}", path);
             }
 
-            Console.WriteLine("\nPress Enter key to stop the server...");
-            Console.ReadLine();
+            string com = "";
+            do
+            {
+                Console.WriteLine("\nCommand me >");
+                com = Console.ReadLine();
+            }
+            while (!com.Equals("stop"));
 
             wssv.Stop();
+        }
+
+        static void PromptWelcome()
+        {
+
         }
     }
 }
