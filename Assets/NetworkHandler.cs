@@ -16,6 +16,8 @@ public class NetworkHandler : MonoBehaviour {
     private List<JSONNode> messageQueue;
     private List<JSONNode> errorQueue;
 
+    private string authenticatedAs;
+
     void Start()
 	{
         if(networkHandler == null)
@@ -24,6 +26,8 @@ public class NetworkHandler : MonoBehaviour {
 
             messageQueue = new List<JSONNode>();
             errorQueue = new List<JSONNode>();
+
+            authenticatedAs = null;
 
             ws = new WebSocket(serverURL);
 
@@ -81,6 +85,27 @@ public class NetworkHandler : MonoBehaviour {
                 case "getPropertyData":
                     propertyData = o["data"].AsObject;
                     break;
+                case "createCharacter":
+                    if (o["data"]["success"].AsBool)
+                    {
+                        createdCharacter = "Y";
+                    }
+                    else
+                    {
+                        createdCharacter = "N";
+                    }
+                    break;
+                case "login":
+                    if (o["data"]["success"].AsBool)
+                    {
+                        loggedIn = "Y";
+                        authenticatedAs = o["data"]["token"].ToString();
+                    }
+                    else
+                    {
+                        loggedIn = "N";
+                    }
+                    break;
             }
 
             messageQueue.RemoveAt(0);
@@ -120,5 +145,49 @@ public class NetworkHandler : MonoBehaviour {
         JSONObject p = propertyData;
         propertyData = null;
         return p;
+    }
+
+    // CREATE CHARACTER //
+    private string createdCharacter = "";
+    public void CreateCharacter(string username, string password)
+    {
+        JSONObject o = new JSONObject();
+        o.Add("type", "add");
+        o.Add("target", "character");
+        o.Add("username", username);
+        o.Add("password", password);
+        ws.Send(o.ToString());
+    }
+    public bool HasCreatedCharacter()
+    {
+        return !createdCharacter.Equals("");
+    }
+    public string ReadCreatedCharacter()
+    {
+        string c = createdCharacter;
+        createdCharacter = "";
+        return c;
+    }
+
+    // LOG IN //
+    private string loggedIn = "";
+    public void LogIn(string username, string password)
+    {
+        JSONObject o = new JSONObject();
+        o.Add("type", "auth");
+        o.Add("target", "login");
+        o.Add("username", username);
+        o.Add("password", password);
+        ws.Send(o.ToString());
+    }
+    public bool HasLoggedIn()
+    {
+        return !loggedIn.Equals("");
+    }
+    public string ReadLoggedIn()
+    {
+        string l = loggedIn;
+        loggedIn = "";
+        return l;
     }
 }

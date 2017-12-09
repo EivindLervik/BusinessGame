@@ -43,9 +43,9 @@ namespace BusinessGameWebSocketServer
             wssv.Stop();
         }
 
-        static void PromptWelcome()
+        public static void SaveDatabase()
         {
-
+            database.SaveDatabase();
         }
     }
 }

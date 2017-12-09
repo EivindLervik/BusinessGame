@@ -3,6 +3,7 @@ using WebSocketSharp;
 using WebSocketSharp.Server;
 using SimpleJSON;
 using BusinessGameWebSocketServer.SendObjects;
+using System.Collections.Generic;
 
 namespace BusinessGameWebSocketServer
 {
@@ -32,6 +33,40 @@ namespace BusinessGameWebSocketServer
                         break;
                 }
             }
+            else if (type.Equals("set"))
+            {
+                
+            }
+            else if (type.Equals("add"))
+            {
+                switch (target)
+                {
+                    case "character":
+                        JSONObject o = new JSONObject();
+
+                        o.Add("type", "createCharacter");
+                        o.Add("data", Program.database.CreateCharacter(data["username"], data["password"]));
+
+                        Send(o.ToString());
+                        break;
+                }
+            }
+            else if (type.Equals("auth"))
+            {
+                switch (target)
+                {
+                    case "login":
+                        JSONObject o = new JSONObject();
+
+                        o.Add("type", "login");
+                        o.Add("data", Program.database.LogIn(data["username"], data["password"]));
+
+                        Send(o.ToString());
+                        break;
+                }
+            }
+
+            Program.SaveDatabase();
         }
 
         protected override void OnError(ErrorEventArgs e)
