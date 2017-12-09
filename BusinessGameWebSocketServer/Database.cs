@@ -43,6 +43,49 @@ namespace BusinessGameWebSocketServer
             return successObject;
         }
 
+        public JSONArray GetCities()
+        {
+            JSONArray names = new JSONArray();
+
+            foreach(string name in cities.Keys)
+            {
+                names.Add(name);
+            }
+
+            return names;
+        }
+
+        public JSONObject GetCity(string name)
+        {
+            return cities[name].AsObject;
+        }
+
+        public JSONObject CreateCity(string name)
+        {
+            bool success = cities[name] == null;
+            JSONObject successObject = new JSONObject();
+
+            if (success)
+            {
+                cities[name]["name"] = name;
+                cities[name]["properties"] = new JSONObject();
+                cities[name]["sizeX"] = 20;
+                cities[name]["sizeY"] = 20;
+                cities[name]["bgData"] = new JSONArray();
+                cities[name]["objectData"] = new JSONArray();
+
+                for(int i=0; i<400; i++)
+                {
+                    cities[name]["bgData"].Add(0);
+                    cities[name]["objectData"].Add(0);
+
+                }
+            }
+
+            successObject.Add("success", success);
+            return successObject;
+        }
+
         public JSONObject LogIn(string username, string password)
         {
             bool success = false;

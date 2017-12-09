@@ -2,7 +2,29 @@
 
 This is the protocol for the business game.
 
-
+% OBJECT FORMAT %
+	City
+		{
+			"name": string,
+			"properties": [
+            			(string)
+				, (string)
+				, (string)
+				, ...
+        		],
+			"bgData": [
+            			(spriteID)
+				, (spriteID)
+				, (spriteID)
+				, ...
+        		],
+			"objectData": [
+            			(spriteID)
+				, (spriteID)
+				, (spriteID)
+				, ...
+        		]
+		}
 
 
 

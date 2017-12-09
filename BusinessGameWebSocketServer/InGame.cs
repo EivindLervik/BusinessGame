@@ -20,16 +20,25 @@ namespace BusinessGameWebSocketServer
             string type = data["type"];
             string target = data["target"];
 
+            JSONObject o = new JSONObject();
+
             if (type.Equals("get"))
             {
                 switch (target)
                 {
                     case "property":
-                        JSONObject o = new JSONObject();
                         o.Add("type", "getPropertyData");
                         o.Add("data", Program.database.GetPropertyData(data["city"], data["address"]));
+                        break;
 
-                        Send(o.ToString());
+                    case "cities":
+                        o.Add("type", "getCities");
+                        o.Add("data", Program.database.GetCities());
+                        break;
+
+                    case "city":
+                        o.Add("type", "getCity");
+                        o.Add("data", Program.database.GetCity(data["name"]));
                         break;
                 }
             }
@@ -42,12 +51,13 @@ namespace BusinessGameWebSocketServer
                 switch (target)
                 {
                     case "character":
-                        JSONObject o = new JSONObject();
-
                         o.Add("type", "createCharacter");
                         o.Add("data", Program.database.CreateCharacter(data["username"], data["password"]));
+                        break;
 
-                        Send(o.ToString());
+                    case "city":
+                        o.Add("type", "createCity");
+                        o.Add("data", Program.database.CreateCity(data["name"]));
                         break;
                 }
             }
@@ -56,15 +66,13 @@ namespace BusinessGameWebSocketServer
                 switch (target)
                 {
                     case "login":
-                        JSONObject o = new JSONObject();
-
                         o.Add("type", "login");
                         o.Add("data", Program.database.LogIn(data["username"], data["password"]));
-
-                        Send(o.ToString());
                         break;
                 }
             }
+
+            Send(o.ToString());
 
             Program.SaveDatabase();
         }

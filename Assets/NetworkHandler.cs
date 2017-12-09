@@ -17,6 +17,8 @@ public class NetworkHandler : MonoBehaviour {
     private List<JSONNode> errorQueue;
 
     private string authenticatedAs;
+    private string currentCity;
+    private string currentProperty;
 
     void Start()
 	{
@@ -84,6 +86,7 @@ public class NetworkHandler : MonoBehaviour {
             {
                 case "getPropertyData":
                     propertyData = o["data"].AsObject;
+                    currentProperty = propertyData["name"];
                     break;
                 case "createCharacter":
                     if (o["data"]["success"].AsBool)
@@ -93,6 +96,16 @@ public class NetworkHandler : MonoBehaviour {
                     else
                     {
                         createdCharacter = "N";
+                    }
+                    break;
+                case "createCity":
+                    if (o["data"]["success"].AsBool)
+                    {
+                        createdCity = "Y";
+                    }
+                    else
+                    {
+                        createdCity = "N";
                     }
                     break;
                 case "login":
@@ -106,6 +119,19 @@ public class NetworkHandler : MonoBehaviour {
                         loggedIn = "N";
                     }
                     break;
+                case "getCities":
+                    cities = new List<string>();
+                    foreach(string c in o["data"].AsArray.Values)
+                    {
+                        cities.Add(c);
+                        print(c);
+                    }
+                    break;
+                case "getCity":
+                    city = o["data"].AsObject;
+                    currentCity = city["name"];
+                    print(city.ToString());
+                    break;
             }
 
             messageQueue.RemoveAt(0);
@@ -117,7 +143,10 @@ public class NetworkHandler : MonoBehaviour {
         return connected;
     }
 
-
+    public void SetCurrentCity(string city)
+    {
+        currentCity = city;
+    }
 
 
 
@@ -189,5 +218,71 @@ public class NetworkHandler : MonoBehaviour {
         string l = loggedIn;
         loggedIn = "";
         return l;
+    }
+
+    // GET CITIES //
+    private List<string> cities;
+    public void GetCities()
+    {
+        JSONObject o = new JSONObject();
+        o.Add("type", "get");
+        o.Add("target", "cities");
+        ws.Send(o.ToString());
+    }
+    public bool HasCities()
+    {
+        return cities != null;
+    }
+    public List<string> ReadCities()
+    {
+        List<string> c = cities;
+        cities = null;
+        return c;
+    }
+
+    // GET CITY //
+    private JSONObject city;
+    public void GetCurrentCity()
+    {
+        GetCity(currentCity);
+    }
+    public void GetCity(string name)
+    {
+        JSONObject o = new JSONObject();
+        o.Add("type", "get");
+        o.Add("target", "city");
+        o.Add("name", name);
+        ws.Send(o.ToString());
+    }
+    public bool HasCity()
+    {
+        return city != null;
+    }
+    public JSONObject ReadCity()
+    {
+        JSONObject c = city;
+        city = null;
+        return c;
+    }
+
+    // CREATE CITY //
+    private string createdCity = "";
+    public void CreateCity(string name)
+    {
+        JSONObject o = new JSONObject();
+        o.Add("type", "add");
+        o.Add("target", "city");
+        o.Add("name", name);
+        ws.Send(o.ToString());
+    }
+    public bool HasCreatedCity()
+    {
+        return !createdCity.Equals("");
+    }
+    public string ReadCreatedCity()
+    {
+        string c = createdCity;
+        createdCity = "";
+        return c;
     }
 }

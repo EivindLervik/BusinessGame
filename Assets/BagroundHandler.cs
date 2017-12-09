@@ -25,9 +25,9 @@ public class BagroundHandler : MonoBehaviour {
 
     IEnumerator LoadBG()
     {
-        NetworkHandler.networkHandler.GetPropertyData("Manger", "Lervikvegen 98");
-        yield return new WaitUntil(() => NetworkHandler.networkHandler.HasPropertyData());
-        JSONObject propertyData = NetworkHandler.networkHandler.ReadPropertyData();
+        GameHandler.networkHandler.GetPropertyData("Manger", "Lervikvegen 98");
+        yield return new WaitUntil(() => GameHandler.networkHandler.HasPropertyData());
+        JSONObject propertyData = GameHandler.networkHandler.ReadPropertyData();
 
         int index = 0;
         foreach(string s in propertyData["bgData"].AsArray.Values)
